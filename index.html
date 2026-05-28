@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heloisa Bandeira — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Mono:wght@300;400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f5f2ed;
+    --ink: #0d0d0d;
+    --accent: #c8402a;
+    --muted: #7a7469;
+    --faint: #e8e4de;
+    --line: rgba(13,13,13,0.1);
+    --gold: #b8935a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* grain */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.1rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(245,242,237,0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color .15s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 7rem 2.5rem 4rem;
+    position: relative;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--muted);
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 9vw, 8.5rem);
+    font-weight: 300;
+    line-height: .95;
+    letter-spacing: -.02em;
+    margin-bottom: 2.5rem;
+    max-width: 900px;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    max-width: 1100px;
+  }
+
+  .hero-bio {
+    font-size: 1.15rem;
+    line-height: 1.75;
+    color: var(--ink);
+    max-width: 480px;
+  }
+  .hero-bio p + p { margin-top: 1rem; }
+
+  .hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    align-items: flex-end;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+  }
+  .meta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .meta-value {
+    font-size: 0.95rem;
+    color: var(--ink);
+  }
+
+  .hero-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .hero-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 2px;
+    transition: color .15s, border-color .15s;
+  }
+  .hero-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  .hero-bag {
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    transform: translateY(-55%);
+    font-size: clamp(6rem, 14vw, 14rem);
+    opacity: 0.07;
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+  }
+
+  /* ── SECTIONS ── */
+  section { border-bottom: 1px solid var(--line); }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2.5rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  /* ── WORK GRID ── */
+  .work-intro {
+    font-size: 1rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 2.5rem;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .work-card {
+    background: var(--paper);
+    padding: 2.2rem 2rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+    transition: background .2s;
+    cursor: pointer;
+  }
+  .work-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--accent);
+    transition: height .3s ease;
+  }
+  .work-card:hover { background: #f0ece5; }
+  .work-card:hover::before { height: 100%; }
+
+  .work-card-emoji {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  .work-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+
+  .work-card-tags {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .work-card-result {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-top: auto;
+  }
+
+  .work-card-arrow {
+    position: absolute;
+    bottom: 1.8rem;
+    right: 1.8rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: .1em;
+    color: var(--muted);
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity .2s, transform .2s;
+  }
+  .work-card:hover .work-card-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .work-card.full-width {
+    grid-column: 1 / -1;
+  }
+
+  /* ── SERVICES ── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+
+  .service h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: .75rem;
+    color: var(--ink);
+  }
+  .service p {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* ── CONTACT STRIP ── */
+  .contact-strip {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 5rem 2.5rem;
+    text-align: center;
+  }
+  .contact-strip h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+  .contact-strip p {
+    font-size: 1rem;
+    color: rgba(245,242,237,.5);
+    margin-bottom: 2rem;
+  }
+  .contact-btn {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--paper);
+    border: 1px solid rgba(245,242,237,.3);
+    padding: .9rem 2.5rem;
+    text-decoration: none;
+    transition: background .2s, border-color .2s;
+  }
+  .contact-btn:hover {
+    background: rgba(245,242,237,.08);
+    border-color: rgba(245,242,237,.7);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade { opacity: 0; animation: fadeUp .8s ease forwards; }
+  .fade-1 { animation-delay: .1s; }
+  .fade-2 { animation-delay: .25s; }
+  .fade-3 { animation-delay: .4s; }
+  .fade-4 { animation-delay: .55s; }
+  .fade-5 { animation-delay: .7s; }
+
+  /* scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 6rem 1.5rem 3rem; }
+    .hero-body { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-meta { align-items: flex-start; }
+    .hero-bag { display: none; }
+    .section-inner { padding: 3.5rem 1.5rem; }
+    .work-grid { grid-template-columns: 1fr; }
+    .work-card.full-width { grid-column: auto; }
+    .services-grid { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-name">Heloisa Bandeira</span>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="mailto:heloisabandeira@gmail.com">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bag" aria-hidden="true">👜</div>
+
+  <div class="hero-eyebrow fade fade-1">
+    Social Media & Brand Strategy
+  </div>
+
+  <h1 class="hero-title fade fade-2">
+    Hey,<br><em>Vogue.</em>
+  </h1>
+
+  <div class="hero-body">
+    <div>
+      <div class="hero-bio fade fade-3">
+        <p>Marketing strategist fluent in culture, content, and community. I build brands people actually want to follow.</p>
+        <p>From 150K+ organic communities built from scratch to Fortune 500 campaigns generating millions in measurable impact — I bring a founder's instinct and an editorial eye to every brand I work with.</p>
+      </div>
+      <div class="hero-links fade fade-4">
+        <a class="hero-link" href="https://www.linkedin.com/in/heloisabandeira/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="hero-link" href="https://readymag.website/u3403123651/5816781/" target="_blank" rel="noopener">Readymag Portfolio ↗</a>
+        <a class="hero-link" href="mailto:heloisabandeira@gmail.com">Email ↗</a>
+      </div>
+    </div>
+
+    <div class="hero-meta fade fade-5">
+      <div class="meta-item">
+        <span class="meta-label">Based in</span>
+        <span class="meta-value">Londrina, Brazil</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Languages</span>
+        <span class="meta-value">PT · EN · ES · IT</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Focus</span>
+        <span class="meta-value">Beauty · Wellness · Founder-Led DTC</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Availability</span>
+        <span class="meta-value">Freelance & Brand Partnerships</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-num">01</span>
+      <span class="section-title">Selected Work</span>
+    </div>
+
+    <p class="work-intro reveal">Click any case to read the full story.</p>
+
+    <div class="work-grid reveal">
+
+      <!-- Pace Port — links to local HTML -->
+      <a class="work-card" href="tcs-paceport-case-study.html">
+        <div class="work-card-emoji">🚀</div>
+        <div class="work-card-title">TCS Pace Port São Paulo — Launch Campaign</div>
+        <div class="work-card-tags">Social Media · Content Strategy · LinkedIn</div>
+        <div class="work-card-result">+300% engagement · 60,000+ impressions</div>
+        <span class="work-card-arrow">Read case study →</span>
+      </a>
+
+      <!-- FEBRABAN -->
+      <a class="work-card" href="https://www.notion.so/FEBRABAN-Tech-2025-690e7c3e182b4844a43d9bb223b3f8d7" target="_blank" rel="noopener">
+        <div class="work-card-emoji">🎤</div>
+        <div class="work-card-title">FEBRABAN Tech 2025</div>
+        <div class="work-card-tags">Event Marketing · Brand Strategy · B2B</div>
+        <div class="work-card-result">~US$3.5M in new business opportunities</div>
+        <span class="work-card-arrow">Read case study →</span>
+      </a>
+
+      <!-- Formula E -->
+      <a class="work-card" href="https://www.notion.so/Formula-E-TCS-Brand-Experience-e9bc2e5f5eb940928e179e42934ce61d" target="_blank" rel="noopener">
+        <div class="work-card-emoji">🏎️</div>
+        <div class="work-card-title">Formula E × TCS — Brand Experience</div>
+        <div class="work-card-tags">Sponsorship · PR · Brand Experience</div>
+        <div class="work-card-result">~US$11.4M in PR value · 92 media mentions</div>
+        <span class="work-card-arrow">Read case study →</span>
+      </a>
+
+      <!-- LinkedIn Top Company -->
+      <a class="work-card" href="https://www.notion.so/TCS-Latin-America-LinkedIn-Top-Company-2026-6f17aa20a4504155ab2c9601871d44e5" target="_blank" rel="noopener">
+        <div class="work-card-emoji">🏆</div>
+        <div class="work-card-title">TCS Latin America — LinkedIn Top Company 2026</div>
+        <div class="work-card-tags">Content Strategy · Audience Growth · LinkedIn</div>
+        <div class="work-card-result">Led strategy throughout full qualifying period</div>
+        <span class="work-card-arrow">Read case study →</span>
+      </a>
+
+      <!-- Harry Styles — full width -->
+      <a class="work-card full-width" href="https://www.notion.so/Harry-Styles-Brasil-Community-Building-0a92bb1e65d44e18ba087692164ce3d6" target="_blank" rel="noopener">
+        <div class="work-card-emoji">🌸</div>
+        <div class="work-card-title">Harry Styles Brasil — Community Building</div>
+        <div class="work-card-tags">Community Strategy · Organic Growth · Digital Storytelling</div>
+        <div class="work-card-result">150K+ followers · $0 paid media · Built from zero</div>
+        <span class="work-card-arrow">Read case study →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-num">02</span>
+      <span class="section-title">What I Bring</span>
+    </div>
+
+    <div class="services-grid">
+      <div class="service reveal">
+        <h3>Brand Strategy</h3>
+        <p>Editorial direction, tone of voice, positioning for brands that want to mean something to their audience.</p>
+      </div>
+      <div class="service reveal">
+        <h3>Social Media</h3>
+        <p>Content strategy and execution across Instagram, LinkedIn, and TikTok — platform-native, data-informed.</p>
+      </div>
+      <div class="service reveal">
+        <h3>Community</h3>
+        <p>Building real relationships at scale. Not just followers — people who show up, share, and stay.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<footer class="contact-strip reveal">
+  <h2>Let's build something worth following.</h2>
+  <p>Available for freelance projects and brand partnerships.</p>
+  <a class="contact-btn" href="mailto:heloisabandeira@gmail.com">heloisabandeira@gmail.com</a>
+</footer>
+
+<script>
+  // scroll reveal
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>

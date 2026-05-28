@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCS Pace Port São Paulo — Campaign Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f2ed;
+    --accent: #c8402a;
+    --muted: #7a7469;
+    --line: rgba(13,13,13,0.12);
+    --gold: #b8935a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 300;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ── GRAIN OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.5;
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .mono { font-family: 'DM Mono', monospace; font-weight: 300; }
+  .syne { font-family: 'Syne', sans-serif; }
+  .italic { font-style: italic; }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+  .container-wide { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+  hr.rule { border: none; border-top: 1px solid var(--line); margin: 0; }
+
+  /* ── HEADER ── */
+  header {
+    padding: 3rem 0 0;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .header-eyebrow span { display: flex; align-items: center; gap: 0.5rem; }
+  .header-eyebrow span::before { content: '—'; opacity: 0.4; }
+
+  h1.case-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 6vw, 5.2rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+    max-width: 780px;
+  }
+
+  h1.case-title em {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .header-summary {
+    font-size: 1.2rem;
+    color: var(--muted);
+    max-width: 540px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  .header-numbers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--line);
+    margin-top: 0;
+  }
+
+  .header-number {
+    padding: 2rem 0;
+    border-right: 1px solid var(--line);
+  }
+  .header-number:last-child { border-right: none; }
+
+  .num-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.02em;
+  }
+
+  .num-value span { color: var(--accent); }
+  .num-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+
+  /* ── SECTION HEADINGS ── */
+  .section { padding: 5rem 0; border-bottom: 1px solid var(--line); }
+  .section:last-of-type { border-bottom: none; }
+
+  .section-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  h2.section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 3rem;
+  }
+
+  /* ── BODY TEXT ── */
+  .body-text {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--ink);
+    max-width: 620px;
+  }
+
+  .body-text p + p { margin-top: 1.2em; }
+
+  .pull-quote {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.35;
+    color: var(--ink);
+    border-left: 2px solid var(--accent);
+    padding-left: 2rem;
+    margin: 3rem 0;
+    max-width: 680px;
+  }
+
+  /* ── TWO-COL LAYOUT ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .two-col-narrow {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  /* ── METADATA BLOCKS ── */
+  .meta-block { margin-bottom: 2rem; }
+  .meta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+  .meta-value { font-size: 1rem; color: var(--ink); line-height: 1.5; }
+
+  /* ── TAG ── */
+  .tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    color: var(--muted);
+    margin: 2px 2px 2px 0;
+  }
+
+  /* ── STRATEGY CARDS ── */
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-top: 2rem;
+  }
+
+  .strategy-card {
+    background: var(--paper);
+    padding: 2rem;
+    position: relative;
+  }
+
+  .strategy-card-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--line);
+    position: absolute;
+    top: 1.2rem;
+    right: 1.5rem;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .strategy-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    color: var(--ink);
+  }
+
+  .strategy-card p {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── RESULTS TABLE ── */
+  .results-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+  .results-table tr { border-bottom: 1px solid var(--line); }
+  .results-table tr:last-child { border-bottom: none; }
+  .results-table td { padding: 1.2rem 0; vertical-align: top; }
+  .results-table td:first-child {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    width: 200px;
+    padding-right: 2rem;
+    padding-top: 1.4rem;
+  }
+  .results-table .big-result {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .results-table .big-result span { color: var(--accent); }
+  .results-table .result-context {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-top: 0.3rem;
+    line-height: 1.5;
+  }
+
+  /* ── SKILL TAGS ROW ── */
+  .skills-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1.5rem; }
+
+  /* ── LESSONS ── */
+  .lesson {
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .lesson:last-child { border-bottom: none; }
+
+  .lesson-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--accent);
+    line-height: 1;
+    margin-top: 0.1rem;
+  }
+
+  .lesson h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .lesson p { font-size: 1rem; color: var(--muted); line-height: 1.65; }
+
+  /* ── FOOTER CTA ── */
+  .case-footer {
+    padding: 5rem 0;
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+  }
+
+  .case-footer h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+
+  .case-footer p { font-size: 1rem; color: rgba(245,242,237,0.55); margin-bottom: 2rem; }
+
+  .cta-link {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--paper);
+    border: 1px solid rgba(245,242,237,0.3);
+    padding: 0.9rem 2.2rem;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .cta-link:hover { background: rgba(245,242,237,0.08); border-color: rgba(245,242,237,0.6); }
+
+  /* ── PROCESS TIMELINE ── */
+  .timeline { margin-top: 2rem; }
+  .timeline-step {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .timeline-step:last-child { border-bottom: none; }
+  .timeline-step::before {
+    content: '';
+    position: absolute;
+    left: 108px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--line);
+  }
+  .timeline-phase {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 0.15rem;
+  }
+  .timeline-content h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .timeline-content p { font-size: 1rem; color: var(--muted); line-height: 1.65; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(245,242,237,0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  nav .nav-brand {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  nav .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  nav .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  nav .nav-links a:hover { color: var(--ink); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up { opacity: 0; animation: fadeUp 0.7s ease forwards; }
+  .fade-up:nth-child(1) { animation-delay: 0.1s; }
+  .fade-up:nth-child(2) { animation-delay: 0.25s; }
+  .fade-up:nth-child(3) { animation-delay: 0.4s; }
+  .fade-up:nth-child(4) { animation-delay: 0.55s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    .two-col, .two-col-narrow { grid-template-columns: 1fr; gap: 2rem; }
+    .strategy-grid { grid-template-columns: 1fr; }
+    .header-numbers { grid-template-columns: 1fr; }
+    .header-number { border-right: none; border-bottom: 1px solid var(--line); }
+    .header-number:last-child { border-bottom: none; }
+    .lesson { grid-template-columns: 40px 1fr; }
+    .timeline-step { grid-template-columns: 80px 1fr; gap: 1rem; }
+    nav .nav-links { display: none; }
+    .results-table td:first-child { width: 120px; }
+  }
+
+  /* spacing after nav */
+  .page-start { padding-top: 4.5rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">Heloisa Bandeira — Portfolio</span>
+  <div class="nav-links">
+    <a href="#context">Context</a>
+    <a href="#strategy">Strategy</a>
+    <a href="#execution">Execution</a>
+    <a href="#results">Results</a>
+    <a href="#learnings">Learnings</a>
+  </div>
+</nav>
+
+<div class="page-start">
+
+<!-- HEADER -->
+<header>
+  <div class="container">
+    <div class="header-eyebrow fade-up">
+      <span>Tata Consultancy Services</span>
+      <span>São Paulo, Brazil</span>
+      <span>2025</span>
+      <span>B2B Technology / Innovation</span>
+    </div>
+
+    <h1 class="case-title fade-up">
+      Launching a global<br><em>innovation hub</em><br>in the heart of Brazil
+    </h1>
+
+    <p class="header-summary fade-up">
+      How I led the end-to-end marketing and communications strategy for the TCS Pace Port São Paulo opening — a campaign that had to move a Fortune 500 brand's needle across LinkedIn, press, and C-suite stakeholders simultaneously.
+    </p>
+
+    <div class="header-numbers">
+      <div class="header-number fade-up">
+        <div class="num-value"><span>300</span>%</div>
+        <div class="num-label">Engagement increase on launch content</div>
+      </div>
+      <div class="header-number fade-up">
+        <div class="num-value">60<span>K+</span></div>
+        <div class="num-label">LinkedIn impressions from launch campaign</div>
+      </div>
+      <div class="header-number fade-up">
+        <div class="num-value"><span>$</span>11.4<span>M</span></div>
+        <div class="num-label">Estimated PR value generated (Formula E + FEBRABAN)</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- CONTEXT -->
+<section class="section" id="context">
+  <div class="container">
+    <div class="section-number">01</div>
+    <h2 class="section-title">Context & Challenge</h2>
+
+    <div class="two-col-narrow">
+      <div>
+        <div class="meta-block">
+          <div class="meta-label">My role</div>
+          <div class="meta-value">Junior Marketing Analyst → Marketing Analyst</div>
+        </div>
+        <div class="meta-block">
+          <div class="meta-label">Team size</div>
+          <div class="meta-value">Cross-functional: marketing, PR agencies, creative teams, leadership</div>
+        </div>
+        <div class="meta-block">
+          <div class="meta-label">Timeline</div>
+          <div class="meta-value">Campaign planning and execution, 2025</div>
+        </div>
+        <div class="meta-block">
+          <div class="meta-label">Channels</div>
+          <div class="meta-value">LinkedIn, Instagram, press/earned media, event activations</div>
+        </div>
+        <div class="skills-row">
+          <span class="tag">Brand strategy</span>
+          <span class="tag">Campaign management</span>
+          <span class="tag">Social media</span>
+          <span class="tag">Stakeholder management</span>
+          <span class="tag">PR coordination</span>
+          <span class="tag">Creative briefing</span>
+          <span class="tag">Performance analysis</span>
+        </div>
+      </div>
+
+      <div class="body-text">
+        <p>TCS Pace Port São Paulo is one of TCS's global network of co-innovation hubs — spaces designed to bring enterprise clients and TCS engineers together to solve real business challenges. The São Paulo launch was a flagship moment: the largest TCS hub in Latin America, positioned as a signal of TCS's long-term commitment to the Brazilian and LATAM markets.</p>
+
+        <p>The challenge was not simply announcing a new office. It was making the launch feel like a landmark event to three distinct audiences at once: the Brazilian business press, potential enterprise clients in LATAM, and TCS's own global stakeholders tracking regional performance.</p>
+
+        <p>This required a campaign that was simultaneously corporate enough to satisfy a Fortune 500's brand standards and specific enough to mean something locally — a balance most global brand campaigns fail.</p>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      "The brief was not 'launch an office.' It was 'make the Brazilian market believe TCS is here to stay — and make the global team proud of it.'"
+    </div>
+  </div>
+</section>
+
+<!-- STRATEGY -->
+<section class="section" id="strategy">
+  <div class="container">
+    <div class="section-number">02</div>
+    <h2 class="section-title">Strategic Approach</h2>
+
+    <div class="body-text">
+      <p>I led the strategic narrative development for the launch, working across marketing, PR agencies, and senior leadership to define what story we were actually telling — and to whom, in what order.</p>
+      <p>The core strategic frame I proposed: this was not a real estate announcement. It was a capability announcement. TCS wasn't opening a building — it was opening a collaboration platform for Brazilian enterprises to solve problems at global scale.</p>
+    </div>
+
+    <div class="strategy-grid">
+      <div class="strategy-card">
+        <div class="strategy-card-number">1</div>
+        <h3>Narrative-first planning</h3>
+        <p>Before any content was briefed, I defined the core message architecture: primary message for press, secondary message for LinkedIn audiences, and a tertiary message for internal stakeholders. Each had its own tone, proof points, and call to action.</p>
+      </div>
+      <div class="strategy-card">
+        <div class="strategy-card-number">2</div>
+        <h3>Platform-specific content strategy</h3>
+        <p>LinkedIn for B2B reach and brand authority. Instagram for brand warmth and culture signal. Press for credibility and earned reach. Each platform received a distinct content approach — not repurposed variations of one master asset.</p>
+      </div>
+      <div class="strategy-card">
+        <div class="strategy-card-number">3</div>
+        <h3>Stakeholder sequencing</h3>
+        <p>Coordinated internal communications before external launch. Employees and leadership needed to feel informed and proud before the market saw anything — critical for a brand that leads with its people.</p>
+      </div>
+      <div class="strategy-card">
+        <div class="strategy-card-number">4</div>
+        <h3>Metrics-led creative briefing</h3>
+        <p>All creative briefs included pre-defined success metrics: engagement rate benchmarks, impression targets, and media mention goals. Creative was reverse-engineered from performance expectations, not the other way around.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXECUTION -->
+<section class="section" id="execution">
+  <div class="container">
+    <div class="section-number">03</div>
+    <h2 class="section-title">Execution</h2>
+
+    <div class="timeline">
+      <div class="timeline-step">
+        <div class="timeline-phase">Phase 1<br>Foundation</div>
+        <div class="timeline-content">
+          <h3>Message architecture & creative briefing</h3>
+          <p>Developed the strategic narrative and translated it into detailed creative briefs for agency partners. Ensured brand guidelines, tone of voice, and compliance requirements were met while preserving the creative ambition of the launch story. Managed briefing rounds and review cycles across multiple stakeholders.</p>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-phase">Phase 2<br>Activation</div>
+        <div class="timeline-content">
+          <h3>Content planning, editorial direction & social execution</h3>
+          <p>Built and managed the editorial calendar for TCS Brazil and Latin America across LinkedIn and Instagram. Wrote copy, directed content formats, and oversaw scheduling and publishing. For the Pace Port launch specifically, coordinated a multi-asset rollout — teaser content, announcement posts, behind-the-scenes content, and executive thought leadership pieces.</p>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-phase">Phase 3<br>PR & Media</div>
+        <div class="timeline-content">
+          <h3>Press coordination & earned media</h3>
+          <p>Collaborated with PR agencies to craft the press release and media pitch strategy. Supported outreach to journalists and media outlets. The Londrina headquarters announcement (related initiative) generated 11 media features and approximately US$14.2M in equivalent advertising value — a direct result of the narrative and media strategy I contributed to.</p>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-phase">Phase 4<br>Performance</div>
+        <div class="timeline-content">
+          <h3>Monitoring, analysis & optimisation</h3>
+          <p>Tracked performance in real time across platforms. Analysed what content formats, posting times, and messages drove the strongest response. Produced performance reports for leadership and used data to adjust the campaign mid-flight — increasing engagement on the highest-performing content by boosting and extending its distribution window.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="section" id="results">
+  <div class="container">
+    <div class="section-number">04</div>
+    <h2 class="section-title">Results</h2>
+
+    <table class="results-table">
+      <tr>
+        <td>Engagement</td>
+        <td>
+          <div class="big-result"><span>300</span>%</div>
+          <div class="result-context">Increase in engagement on Pace Port launch content vs. baseline TCS Brazil posts. Achieved through narrative-driven copy, strategic asset mix, and timing optimisation.</div>
+        </td>
+      </tr>
+      <tr>
+        <td>LinkedIn reach</td>
+        <td>
+          <div class="big-result">60<span>K+</span></div>
+          <div class="result-context">Organic LinkedIn impressions generated from the launch campaign. No paid amplification on primary launch assets.</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Business impact</td>
+        <td>
+          <div class="big-result"><span>$</span>3.5<span>M</span></div>
+          <div class="result-context">In new business opportunities attributed to FEBRABAN Tech, a high-visibility initiative I co-led as part of the broader marketing programme running alongside the Pace Port launch.</div>
+        </td>
+      </tr>
+      <tr>
+        <td>PR value</td>
+        <td>
+          <div class="big-result"><span>$</span>11.4<span>M</span></div>
+          <div class="result-context">Estimated earned media value from Formula E sponsorship activations I coordinated — 92 media mentions across 6 outlets. Proof of the brand experience strategy translating into measurable media presence.</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Media coverage</td>
+        <td>
+          <div class="big-result">11</div>
+          <div class="result-context">Press features secured for the TCS Londrina headquarters announcement (related campaign), generating ~US$14.2M in equivalent advertising value.</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- LEARNINGS -->
+<section class="section" id="learnings">
+  <div class="container">
+    <div class="section-number">05</div>
+    <h2 class="section-title">What I learned</h2>
+
+    <div class="lessons">
+      <div class="lesson">
+        <div class="lesson-num">I</div>
+        <div>
+          <h3>Narrative is the leverage point</h3>
+          <p>The campaigns that performed didn't succeed because of production quality or budget — they succeeded because the story was true and specific. "TCS opens São Paulo office" is noise. "TCS builds a co-innovation platform for Latin American enterprises" is a story with stakes. Every piece of creative that failed trace back to a brief that started with the channel instead of the idea.</p>
+        </div>
+      </div>
+      <div class="lesson">
+        <div class="lesson-num">II</div>
+        <div>
+          <h3>Stakeholder alignment is a pre-production task</h3>
+          <p>The biggest time losses in any campaign came from feedback loops that should have been resolved before a single brief was written. Investing two extra days in aligning leadership on the core message before production begins saves two weeks of revision cycles downstream. I now build alignment checkpoints into every project plan before any creative work starts.</p>
+        </div>
+      </div>
+      <div class="lesson">
+        <div class="lesson-num">III</div>
+        <div>
+          <h3>Data and creative are not in tension</h3>
+          <p>Reverse-engineering creative briefs from performance targets forces more honest decisions. When you know that the goal is 50K impressions and that video posts on LinkedIn drive 3× the reach of static images at this audience size, you brief video — not because it's trendy, but because the math says so. The best creative work I've been part of was disciplined, not intuitive.</p>
+        </div>
+      </div>
+      <div class="lesson">
+        <div class="lesson-num">IV</div>
+        <div>
+          <h3>Scale is a skill, not just a resource</h3>
+          <p>Managing agencies, legal review, compliance, leadership approvals, and platform publishing simultaneously — while keeping the creative quality high — requires a specific operating system. I built mine on this campaign: weekly stakeholder syncs, a shared asset tracker, a staged review process, and a single source of truth for all live content. Infrastructure is what makes ambition executable.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- end page-start -->
+
+<!-- FOOTER CTA -->
+<footer class="case-footer">
+  <div class="container">
+    <h2>Want results like these for your brand?</h2>
+    <p>I work with beauty, wellness, and founder-led brands on social media strategy, brand storytelling, and integrated campaigns.</p>
+    <a href="mailto:heloisabandeira@gmail.com" class="cta-link">Get in touch →</a>
+  </div>
+</footer>
+
+</body>
+</html>
